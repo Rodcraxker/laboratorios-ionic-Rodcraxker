@@ -1,5 +1,5 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
+
 import './Tab2.css';
 
 const Tab2: React.FC = () => {
@@ -7,16 +7,45 @@ const Tab2: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 2</IonTitle>
+          <IonTitle>Form de Repository</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Tab 2</IonTitle>
+            <IonTitle size="large">Form de Repository</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name="Tab 2 page" />
+
+        <div className='form-container'>
+          <IonInput
+            className= 'form-field'
+            label="Nombre del repo"
+            labelPlacement= 'floating'
+            placeholder='Ingrese la descripcion del repo'
+          />
+          <IonTextarea
+            className="form-field"
+            label='Description'
+            labelPlacement='floating'
+            placeholder='Ingrese la descripcion del repo'
+
+          />
+
+          <IonButton
+            className='form-field'
+            expand='block'
+            color="primary"
+
+            >
+              Guardar
+            </IonButton>
+
+        </div>
+
+
+
+      
       </IonContent>
     </IonPage>
   );
