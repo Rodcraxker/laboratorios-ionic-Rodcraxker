@@ -10,7 +10,7 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, logoGithub, square } from 'ionicons/icons';
+import { addCircle, logoGithub, person, } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
@@ -71,11 +71,11 @@ const App: React.FC = () => (
             <IonLabel>Repos</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon aria-hidden="true" icon={ellipse} />
+            <IonIcon aria-hidden="true" icon={addCircle} />
             <IonLabel>+ Agregar Repo</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon aria-hidden="true" icon={square} />
+            <IonIcon aria-hidden="true" icon={person} />
             <IonLabel>Perfil</IonLabel>
           </IonTabButton>
         </IonTabBar>

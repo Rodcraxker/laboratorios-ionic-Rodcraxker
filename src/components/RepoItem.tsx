@@ -12,13 +12,25 @@ const RepoItem: React.FC<Repository> = (repository) => {
             <IonItem>
 
               <IonThumbnail slot="start">
-                < img src={repository.avatarUrl}
+                < img src={repository.owner.avatar_url}
                   alt={repository.name}/>
               </IonThumbnail>
               <IonLabel>
                 <h3> {repository.name}</h3>
-                <p> {repository.description}</p>
-                <p><strong>Lenguaje:</strong>{repository.language}</p>
+                
+                {repository.description && (
+                  <p> {repository.description}</p>
+
+                )
+                }
+
+                
+                {repository.language && (
+
+                  <p><strong>Lenguaje:</strong>{repository.language}</p>
+
+                )}
+                
               </IonLabel>
             </IonItem>
 
