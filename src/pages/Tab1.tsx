@@ -19,6 +19,8 @@ const Tab1: React.FC = () => {
     setLoading(false);
   }
 
+
+  
   useIonViewWillEnter(() => {
      loadRepos();
   });
@@ -30,7 +32,7 @@ const Tab1: React.FC = () => {
           <IonTitle>Repositorios</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent fullscreen className="ion-padding" > 
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Tab 1</IonTitle>
@@ -44,6 +46,7 @@ const Tab1: React.FC = () => {
 
         </IonList>
         {loading && <LoadingSpinner />}
+        
         
         
       </IonContent>
