@@ -1,7 +1,44 @@
 import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
+import { useState } from 'react'; 
+import { useIonLoading, useIonToast } from '@ionic/react'; 
+import { createRepository } from '../services/GithubServices';
 import './Tab2.css';
 
 const Tab2: React.FC = () => {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [presentToast] = useIonToast();
+  const [presentLoading, dismissLoading] = useIonLoading();
+
+  const handleSave = async () => {
+    if (!name.trim()) {
+      presentToast({ message: 'El nombre es obligatorio', duration: 2000, color: 'danger' });
+      return;
+    }
+
+    await presentLoading('Creando repositorio...');
+
+    try {
+      await createRepository({ name, description });
+      presentToast({ message: 'Repositorio creado correctamente', duration: 2000, color: 'success' });
+      setName(''); // Limpia el nombre
+      setDescription(''); // Limpia la descripción
+
+    } catch (error: unknown) {
+      
+      const message = error instanceof Error ? error.message : 'Error al crear el repositorio';
+      
+      
+      presentToast({ 
+        message: message, 
+        duration: 3000, 
+        color: 'danger' 
+      });
+    } finally {
+      dismissLoading();
+    }
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -18,28 +55,30 @@ const Tab2: React.FC = () => {
 
         <div className='form-container'>
           <IonInput
-            className= 'form-field'
+            className='form-field'
             label="Nombre del repo"
-            labelPlacement= 'floating'
-            placeholder='Ingrese la descripcion del repo'
+            labelPlacement='floating'
+            placeholder='Ingrese el nombre del repo'
+            value={name}
+            onIonInput={(e) => setName(e.detail.value!)}
           />
           <IonTextarea
             className="form-field"
             label='Description'
             labelPlacement='floating'
-            placeholder='Ingrese la descripcion del repo'
-
+            placeholder='Ingrese la descripción del repo'
+            value={description}
+            onIonInput={(e) => setDescription(e.detail.value!)}
           />
 
           <IonButton
             className='form-field'
             expand='block'
             color="primary"
-
-            >
-              Guardar
-            </IonButton>
-
+            onClick={handleSave}
+          >
+            Guardar
+          </IonButton>
         </div>
 
 

@@ -60,3 +60,26 @@ export const fetchUserInfo = async (): Promise<GithubUser | null> => {
     }
 
 }
+
+export const createRepository = async (repoData: { name: string, description: string, private?: boolean }) => {
+    try {
+        const response = await apiClient.post("user/repos", {
+            name: repoData.name,
+            description: repoData.description,
+            private: repoData.private ?? false 
+        });
+        return response.data;
+    } catch (error: unknown) {
+    console.error("Error al crear el repositorio:", error);
+
+    if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.message || "Error del servidor al crear el repositorio");
+    }
+
+    if (error instanceof Error) {
+        throw new Error(error.message);
+    }
+
+    throw new Error("Error desconocido al crear el repositorio");
+}
+};
