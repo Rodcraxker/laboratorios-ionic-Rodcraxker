@@ -2,6 +2,7 @@ import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonTextarea, IonTi
 import { useState } from 'react'; 
 import { useIonLoading, useIonToast } from '@ionic/react'; 
 import { createRepository } from '../services/GithubServices';
+import { useHistory } from 'react-router-dom';
 import './Tab2.css';
 
 const Tab2: React.FC = () => {
@@ -9,6 +10,7 @@ const Tab2: React.FC = () => {
   const [description, setDescription] = useState('');
   const [presentToast] = useIonToast();
   const [presentLoading, dismissLoading] = useIonLoading();
+  const history = useHistory();
 
   const handleSave = async () => {
     if (!name.trim()) {
@@ -20,20 +22,18 @@ const Tab2: React.FC = () => {
 
     try {
       await createRepository({ name, description });
-      presentToast({ message: 'Repositorio creado correctamente', duration: 2000, color: 'success' });
-      setName(''); // Limpia el nombre
-      setDescription(''); // Limpia la descripción
+      
+      // Limpia los campos
+      setName('');
+      setDescription('');
 
+      // mensaje succes y redirige a tab1
+      presentToast({ message: 'Repositorio creado correctamente', duration: 2000, color: 'success' });
+      history.push('/tab1'); 
+      
     } catch (error: unknown) {
-      
       const message = error instanceof Error ? error.message : 'Error al crear el repositorio';
-      
-      
-      presentToast({ 
-        message: message, 
-        duration: 3000, 
-        color: 'danger' 
-      });
+      presentToast({ message: message, duration: 3000, color: 'danger' });
     } finally {
       dismissLoading();
     }
